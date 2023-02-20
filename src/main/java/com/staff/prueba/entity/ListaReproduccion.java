@@ -2,22 +2,38 @@ package com.staff.prueba.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "listasreproduccion")
 public class ListaReproduccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id_lista_reproduccion")
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String nombre;
     private String descripcion;
+    @OneToMany
+    private List<CancionListaProduccion> canciones;
 
-    public long getId() {
+    public List<CancionListaProduccion> getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(List<CancionListaProduccion> canciones) {
+        this.canciones = canciones;
+    }
+
+    public ListaReproduccion(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

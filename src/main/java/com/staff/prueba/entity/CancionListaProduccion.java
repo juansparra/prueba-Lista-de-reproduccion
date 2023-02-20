@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "cancionlistaproduccion")
 public class CancionListaProduccion {
     @EmbeddedId CancionListaProduccionPK id;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_cancion",insertable = false,updatable = false)
     private  Cancion cancion;

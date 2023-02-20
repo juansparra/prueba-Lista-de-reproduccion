@@ -1,7 +1,8 @@
 package com.staff.prueba.service;
 
 import com.staff.prueba.entity.Cancion;
-import com.staff.prueba.repository.CancionRepository;
+import com.staff.prueba.entity.ListaReproduccion;
+import com.staff.prueba.repository.ListaRepository;
 import jakarta.transaction.Transactional;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -10,48 +11,47 @@ import java.util.List;
 
 @Service
 public class ListaService {
-    private final org.apache.juli.logging.Log LOG = LogFactory.getLog(ListaService.class);
-    private CancionRepository cancionRepository;
-    public ListaService(CancionRepository cancionRepository){
-        super();
-        this.cancionRepository = cancionRepository;
-    }
+    private final org.apache.juli.logging.Log LOG = LogFactory.getLog(CancionService.class);
+ private ListaRepository listaRepository;
+
+ public ListaService (ListaRepository listaRepository){
+     super();
+     this.listaRepository = listaRepository;
+ }
     @Transactional
-    public void saveTransactional(List<Cancion> canciones) {
+    public void saveTransactional(List<ListaReproduccion> listasReproduccion) {
 
-        canciones.stream().peek(cancion -> LOG.info("Usuario insertado " + cancion)).forEach(cancionRepository::save);
+        listasReproduccion.stream().peek(listaReproduccion -> LOG.info("lista de reproduccion insertado " + listaReproduccion)).forEach(listaRepository::save);
     }
 
-    public List<Cancion> getAllCanciones() {
-
-        return (List<Cancion>) cancionRepository.findAll();
+    public List<ListaReproduccion> getAllListasReproduccion() {
+        return (List<ListaReproduccion>) listaRepository.findAll();
     }
 
-    public Cancion save(Cancion newCancion) {
+    public ListaReproduccion save(ListaReproduccion newListaReproduccion) {
         // TODO Auto-generated method stub
-        return cancionRepository.save(newCancion);
+        return listaRepository.save(newListaReproduccion);
     }
 
     public void delete(Long id) {
         // TODO Auto-generated method stub
-        cancionRepository.delete(new Cancion(id));
+        listaRepository.delete(new ListaReproduccion(id));
     }
 
-    public Cancion update(Cancion newCancion, Long id) {
+    public ListaReproduccion update(ListaReproduccion newListaReproduccion, Long id) {
         // TODO Auto-generated method stub
         return
-                cancionRepository.findById(id)
+                listaRepository.findById(id)
                         .map(
-                                cancion -> {
-                                    cancion.setArtista(newCancion.getArtista());
-                                    cancion.setAlbum(newCancion.getAlbum());
-                                    cancion.setTitulo(newCancion.getTitulo());
-                                    cancion.setGenero(newCancion.getGenero());
-                                    cancion.setAnno(newCancion.getAnno());
+                                listaReproduccion -> {
+                                    listaReproduccion.setArtista(newCancion.getArtista());
+                                    listaReproduccion.setAlbum(newCancion.getAlbum());
+                                    listaReproduccion.setTitulo(newCancion.getTitulo());
+                                    listaReproduccion.setGenero(newCancion.getGenero());
+                                    listaReproduccion.setAnno(newCancion.getAnno());
                                     return cancionRepository.save(cancion);
                                 }
                         ).get();
 
     }
-
 }
