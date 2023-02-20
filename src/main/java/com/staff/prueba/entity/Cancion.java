@@ -9,6 +9,7 @@ import java.time.Year;
 public class Cancion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cancion")
     private long id;
     @Column(nullable = false)
     private String titulo;

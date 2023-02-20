@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class ListaReproduccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id_lista_reproduccion")
     private long id;
     @Column(nullable = false)
     private String nombre;
