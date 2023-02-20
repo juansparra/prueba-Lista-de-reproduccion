@@ -2,11 +2,12 @@ package com.staff.prueba.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "listasreproduccion")
-public class ListaReproduccion {
+public class ListaReproduccion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id_lista_reproduccion")

@@ -2,11 +2,13 @@ package com.staff.prueba.service;
 
 import com.staff.prueba.entity.ListaReproduccion;
 import com.staff.prueba.repository.ListaRepository;
-import jakarta.transaction.Transactional;
+
 import org.apache.juli.logging.LogFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ListaService {
@@ -31,9 +33,18 @@ public class ListaService {
         return listaRepository.save(newListaReproduccion);
     }
 
+    public void deleteByNombre (String nombre){
+        listaRepository.deleteBynombre(nombre);
+    }
+
     public void delete(Long id) {
         // TODO Auto-generated method stub
         listaRepository.delete(new ListaReproduccion(id));
+    }
+
+    @Transactional(readOnly = true)
+    public ListaReproduccion getLista(String name){
+        return listaRepository.findBynombre(name);
     }
 
     public ListaReproduccion update(ListaReproduccion newListaReproduccion, Long id) {

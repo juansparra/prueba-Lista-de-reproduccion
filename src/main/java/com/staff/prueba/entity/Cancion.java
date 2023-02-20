@@ -2,13 +2,14 @@ package com.staff.prueba.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.Year;
 
 @Entity
 @Table(name = "canciones")
-public class Cancion {
+public class Cancion implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_cancion")
     private long id;
     @Column(nullable = false)
@@ -18,8 +19,8 @@ public class Cancion {
     @Column(length = 50)
     private String album;
     private Year anno;
-    @Column(length = 20)
-    private  String genero;
+
+    private String genero;
 
     public Cancion(Long id) {
         this.id = id;
