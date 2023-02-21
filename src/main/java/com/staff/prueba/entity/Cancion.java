@@ -1,5 +1,6 @@
 package com.staff.prueba.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,8 +20,9 @@ public class Cancion implements Serializable {
     @Column(length = 50)
     private String album;
     private Integer anno;
-@ManyToOne
-@JoinColumn(name ="lista_reproduccion_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lista_reproduccion_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ListaReproduccion listaReproduccion;
 
     public ListaReproduccion getListaReproduccion() {

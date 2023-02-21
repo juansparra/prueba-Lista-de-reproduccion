@@ -58,7 +58,7 @@ public class ListaReproduccion {
 
     public void setCanciones(Set<Cancion> canciones) {
         this.canciones = canciones;
-        for (Cancion cancion: canciones) {
+        for (Cancion cancion : canciones) {
             cancion.setListaReproduccion(this);
         }
     }
