@@ -18,7 +18,17 @@ public class Cancion implements Serializable {
     private String artista;
     @Column(length = 50)
     private String album;
-    private Year anno;
+    private Integer anno;
+@ManyToOne
+    private ListaReproduccion listaReproduccion;
+
+    public ListaReproduccion getListaReproduccion() {
+        return listaReproduccion;
+    }
+
+    public void setListaReproduccion(ListaReproduccion listaReproduccion) {
+        this.listaReproduccion = listaReproduccion;
+    }
 
     private String genero;
 
@@ -63,11 +73,11 @@ public class Cancion implements Serializable {
         this.album = album;
     }
 
-    public Year getAnno() {
+    public Integer getAnno() {
         return anno;
     }
 
-    public void setAnno(Year anno) {
+    public void setAnno(Integer anno) {
         this.anno = anno;
     }
 

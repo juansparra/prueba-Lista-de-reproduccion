@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CancionRepository extends PagingAndSortingRepository<Cancion,Long> , CrudRepository<Cancion,Long> {
-
-
+    Cancion save (Cancion cancion);
 }

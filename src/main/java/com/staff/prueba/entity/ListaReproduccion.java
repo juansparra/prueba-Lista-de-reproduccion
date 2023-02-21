@@ -15,8 +15,7 @@ public class ListaReproduccion implements Serializable {
     @Column(nullable = false)
     private String nombre;
     private String descripcion;
-    @OneToMany (fetch = FetchType.LAZY)
-    @JoinColumn(name="id_cancion")
+    @OneToMany (mappedBy = "listaReproduccion" , fetch = FetchType.LAZY)
     private List<Cancion> canciones;
 
     public ListaReproduccion(Long id) {
