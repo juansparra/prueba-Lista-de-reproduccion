@@ -3,20 +3,23 @@ package com.staff.prueba.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "listasreproduccion")
-public class ListaReproduccion implements Serializable {
+public class ListaReproduccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id_lista_reproduccion")
+    @Column(name = "id_lista_reproduccion")
     private Long id;
     @Column(nullable = false)
     private String nombre;
     private String descripcion;
-    @OneToMany (mappedBy = "listaReproduccion" , fetch = FetchType.LAZY)
-    private List<Cancion> canciones;
+
+    @OneToMany(mappedBy = "listaReproduccion", cascade = CascadeType.ALL)
+    private Set<Cancion> canciones = new HashSet<>();
 
     public ListaReproduccion(Long id) {
     }
@@ -49,11 +52,15 @@ public class ListaReproduccion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Cancion> getCanciones() {
+    public Set<Cancion> getCanciones() {
         return canciones;
     }
 
-    public void setCanciones(List<Cancion> canciones) {
+    public void setCanciones(Set<Cancion> canciones) {
         this.canciones = canciones;
+        for (Cancion cancion: canciones) {
+            cancion.setListaReproduccion(this);
+        }
     }
+
 }

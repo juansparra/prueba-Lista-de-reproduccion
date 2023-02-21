@@ -20,6 +20,7 @@ public class Cancion implements Serializable {
     private String album;
     private Integer anno;
 @ManyToOne
+@JoinColumn(name ="lista_reproduccion_id")
     private ListaReproduccion listaReproduccion;
 
     public ListaReproduccion getListaReproduccion() {
@@ -40,6 +41,28 @@ public class Cancion implements Serializable {
 
     }
 
+    public Cancion(long id, String titulo, String artista, String album, Integer anno, ListaReproduccion listaReproduccion, String genero) {
+        this.id = id;
+        this.titulo = titulo;
+        this.artista = artista;
+        this.album = album;
+        this.anno = anno;
+        this.listaReproduccion = listaReproduccion;
+        this.genero = genero;
+    }
+
+    public Cancion(String titulo, String artista, String album, Integer anno, ListaReproduccion listaReproduccion, String genero) {
+        this.titulo = titulo;
+        this.artista = artista;
+        this.album = album;
+        this.anno = anno;
+        this.listaReproduccion = listaReproduccion;
+        this.genero = genero;
+    }
+
+    public Cancion(String titulo) {
+        this.titulo = titulo;
+    }
 
     public long getId() {
         return id;

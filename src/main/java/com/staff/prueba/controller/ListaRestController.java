@@ -22,12 +22,12 @@ public class ListaRestController {
     public List<ListaReproduccion> getAll(){
         return listaService.getAllListas();
     }
-    @GetMapping("/lists/{name}")
-    public ResponseEntity<?> getLista(@PathVariable("name") String name){
-        ListaReproduccion listaReproduccion = null;
+    @GetMapping("/lists/{nombre}")
+    public ResponseEntity<?> getLista(@PathVariable("nombre") String nombre){
+        Optional<ListaReproduccion> listaReproduccion = null;
         Map<String, Object> response = new HashMap<>();
         try {
-            listaReproduccion = listaService.getLista(name);
+            listaReproduccion = listaService.getLista(nombre);
         }
         catch (DataAccessException e){
             response.put("mensaje", "Error al realizar la consulta en la base de datos");
@@ -35,10 +35,10 @@ public class ListaRestController {
         }
         if (listaReproduccion == null) {
             response.put("mensaje",
-                    "La lista: ".concat(name.toString().concat(" no existe en nuestra base de datos")));
+                    "La lista: ".concat(nombre.toString().concat(" no existe en nuestra base de datos")));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<ListaReproduccion>(listaReproduccion,HttpStatus.OK);
+        return new ResponseEntity<Optional<ListaReproduccion>>(listaReproduccion,HttpStatus.OK);
 
     }
 
@@ -47,13 +47,14 @@ public class ListaRestController {
         return new ResponseEntity<>(listaService.save(listaReproduccion),HttpStatus.CREATED);
     }
     @DeleteMapping("/lists/{nombre}")
-    ResponseEntity<?> deleteBynombre(@PathVariable("nombre") String nombre){
-        try {
-            listaService.deleteByNombre(nombre);
+    ResponseEntity<?> deleteByNombre(@PathVariable("nombre") String nombre){
+        Optional<ListaReproduccion> listaServiceOptional = listaService.getLista(nombre);
+        if (!listaServiceOptional.isPresent()){
+            return ResponseEntity.notFound().build();
         }
-        catch (DataAccessException e){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-    return new ResponseEntity(HttpStatus.NO_CONTENT);
+        listaService.deleteByNombre(nombre);
+       return ResponseEntity.noContent().build();
     }
+
+
 }

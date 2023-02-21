@@ -29,12 +29,15 @@ public class ListaService {
         return (List<ListaReproduccion>) listaRepository.findAll();
     }
 
+    public Optional<ListaReproduccion> getById(Long id){
+        return listaRepository.findById(id);
+    }
     public ListaReproduccion save(ListaReproduccion newListaReproduccion) {
         return listaRepository.save(newListaReproduccion);
     }
 
     public void deleteByNombre (String nombre){
-        listaRepository.deleteBynombre(nombre);
+        listaRepository.deleteByNombre(nombre);
     }
 
     public void delete(Long id) {
@@ -43,8 +46,8 @@ public class ListaService {
     }
 
     @Transactional(readOnly = true)
-    public ListaReproduccion getLista(String name){
-        return listaRepository.findBynombre(name);
+    public Optional<ListaReproduccion> getLista(String nombre){
+        return listaRepository.findBynombre(nombre);
     }
 
     public ListaReproduccion update(ListaReproduccion newListaReproduccion, Long id) {
